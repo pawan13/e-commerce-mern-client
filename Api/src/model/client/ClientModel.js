@@ -48,6 +48,6 @@ const Client = mongoose.model('client', clientModel);
 
 const createClient = (clientObj)=> Client.create(clientObj)
 const getClient = (filter) => Client.findOne(filter)
-const updateClient = (filter, updateObj) => findOneAndUpdate(filter, updateObj)
+const updateClient = (filter, updateObj) => Client.findOneAndUpdate(filter, updateObj)
 
 module.exports = {createClient, getClient, updateClient}

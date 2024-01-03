@@ -1,15 +1,24 @@
 const express = require('express');
 const app = express();
-const cors = require("express-cors");
+const cors = require("cors");
 require("dotenv").config();
 
 app.use(cors());
 
 app.use(express.json())
 
-const connectDB = require("./src/config/mongoDB")
+const connectDB = require("./src/config/mongoDB");
+const { clientRouter } = require('./src/router/clientRouter');
+const { categoryRouter } = require('./src/router/categoryRouter');
+const { productRouter } = require('./src/router/productRouter');
+const { reviewRouter } = require('./src/router/reviewRouter');
 
 const PORT = 3000;
+
+app.use('/api/v1/client', clientRouter);
+app.use('/api/v1/category', categoryRouter);
+app.use('/api/v1/product', productRouter);
+app.use('/api/v1/review', reviewRouter);
 
 app.get("/health", (req,res)=>{
     res.json({

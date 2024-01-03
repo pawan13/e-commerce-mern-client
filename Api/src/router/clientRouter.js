@@ -1,23 +1,27 @@
 const express = require("express");
 const { registerClient, verifyClient, loginClient, getClientInfo, logOutClient } = require("../controller/clientController");
 
-const router = express.Router();
+const clientRouter = express.Router();
 
 // client registeration 
-userRouter.post('/registration',  registerClient);
-userRouter.post('/account-verification', verifyClient);
+clientRouter.post('/registration',  registerClient);
+clientRouter.post('/account-verification', verifyClient);
 // accesstoken 
 
 // login
-userRouter.post('/login',  loginClient);
+clientRouter.post('/login',  loginClient);
 // get client details using access 
-userRouter.get('/',  getClientInfo);
+clientRouter.get('/',  getClientInfo);
 // logout
-userRouter.post('/logout', logOutClient);
+clientRouter.post('/logout', logOutClient);
 // reset passwords
-userRouter.post('/reset-password', (req, res) => {
+clientRouter.post('/reset-password', (req, res) => {
     res.json({
       status: SUCCESS,
       message: 'Reset Password Success',
     });
   });
+
+  module.exports= {
+    clientRouter,
+  }

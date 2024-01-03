@@ -6,9 +6,11 @@ const { sendAccountActivationEmail, sendAccountActivatedNotificationEmail, sendO
 const { generateOTPCode } = require('../utils');
 const { createSession, deleteSessionByFilter } = require('../model/session/SessionModel');
 
-const registerClient = async(res, req, next)=> {
+const registerClient = async(req, res, next)=> {
     try {
+        console.log(`Hey I am debugging the code !`)
         const {email, password, fName}= req.body;
+        console.log(email)
         req.body.password = hashPassword(password);
 
         const verificationCode = uuidv4();
@@ -24,7 +26,7 @@ const registerClient = async(res, req, next)=> {
         next(error)
     }
 }
-const verifyClient = async(res, req, next)=> {
+const verifyClient = async(req, res, next)=> {
     try {
         const {e, c } = req.body;
 
@@ -34,7 +36,7 @@ const verifyClient = async(res, req, next)=> {
         },{
             isVerified: true,
             verificationCode: "",
-            status: active,
+            status: "active",
         });
         if(response?._id){
             const {fName} = await getClient({e: email})
@@ -55,7 +57,7 @@ const verifyClient = async(res, req, next)=> {
         next(error)
     }
 }
-const loginClient = async(res, req, next)=> {
+const loginClient = async(req, res, next)=> {
     try {
         const {email, password} = req.body;
 
@@ -89,7 +91,7 @@ const loginClient = async(res, req, next)=> {
         next(error)
     }
 }
-const getClientInfo = async(res, req, next)=> {
+const getClientInfo = async(req, res, next)=> {
     try {
         res.json({
           status: SUCCESS,
@@ -99,7 +101,7 @@ const getClientInfo = async(res, req, next)=> {
         next(e);
       }
 }
-const logOutClient = async(res, req, next)=> {
+const logOutClient = async(req, res, next)=> {
     try {
         const { accessJWT, refreshJWT } = req.body;
         console.log('accessJWT', accessJWT);
@@ -118,7 +120,7 @@ const logOutClient = async(res, req, next)=> {
         next(e);
     }
 }
-const generateOTP = async(res, req, next)=> {
+const generateOTP = async(req, res, next)=> {
     try {
         const { email } = req.body;
         if (email) {
@@ -149,7 +151,7 @@ const generateOTP = async(res, req, next)=> {
         next(e);
     }
 }
-const resetPassword = async(res, req, next)=> {
+const resetPassword = async(req, res, next)=> {
     try {
         const { email, otp, password } = req.body;
         if (email && password && otp) {
