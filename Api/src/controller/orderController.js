@@ -1,24 +1,23 @@
-const { createReview, getReviewById, deleteReview, updateReview } = require("../model/review/ReviewModel")
+const { createOrder, deleteOrder, updateOrder, getOrderById } = require('../model/order/OrderModel');
 const { message: { SUCCESS } } = require('../utils/const');
 
-const createReviewController = async(req, res, next)=>{
+const createOrderController = async(req, res, next) => {
     try {
-        const obj = { ...req.body }
-       await createReview(obj)
+        const obj = {...req.body}
+        createOrder(obj)
         res.json({
             status: SUCCESS,
-            message:
-                "new review is created successfully",
-        });
+            message: " order is created",
+        })   
     } catch (error) {
         next(error)
     }
 }
 
-const getReviewByIdController = async(req, res, next) => {
+const getOrderByIdController = async(req, res, next) => {
     try {
         const {id} = req.params;
-        const result = await getReviewById(id)
+        const result = await getOrderById(id)
         if(!result){
          const error = new Error("Not found!")
          error.statusCode = 404
@@ -33,10 +32,10 @@ const getReviewByIdController = async(req, res, next) => {
     }
 }
 
-const updateReviewController = async(req, res, next ) =>{
+const updateOrderController = async(req, res, next ) =>{
     try {
         const {id} = req.params;
-        const result = await updateReview(id, req.body)
+        const result = await updateOrder(id, req.body)
         if(!result){
             const error = new Error("Not found!")
             error.statusCode = 404
@@ -51,10 +50,10 @@ const updateReviewController = async(req, res, next ) =>{
     }
 }
 
-const deleteReviewController = async(req, res, next ) => {
+const deleteOrderController = async(req, res, next ) => {
     try {
         const {id} = req.params;
-         await deleteReview(id)
+         await deleteOrder(id)
     res.json({
         status: SUCCESS,
         message: "review successfully deleted "
@@ -63,9 +62,7 @@ const deleteReviewController = async(req, res, next ) => {
         next(error)
     }
 }
+
 module.exports = {
-    createReviewController, 
-    getReviewByIdController,
-    updateReviewController,
-    deleteReviewController
+    createOrderController, getOrderByIdController, updateOrderController, deleteOrderController
 }

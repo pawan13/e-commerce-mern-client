@@ -1,4 +1,4 @@
-const { getAproductById, getProductsByFilter } = require("../model/product/Product");
+const { getAproductById, getProductsByFilter } = require("../model/product/ProductModel");
 const { message: { SUCCESS } } = require('../utils/const');
 
 const getAproductByIdController = async(req, res, next) => {
