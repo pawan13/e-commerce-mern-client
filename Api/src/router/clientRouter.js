@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerClient, verifyClient, loginClient, getClientInfo, logOutClient } = require("../controller/clientController");
+const { registerClient, verifyClient, loginClient, getClientInfo, logOutClient, generateOTP, resetPassword } = require("../controller/clientController");
 
 const clientRouter = express.Router();
 
@@ -15,12 +15,8 @@ clientRouter.get('/',  getClientInfo);
 // logout
 clientRouter.post('/logout', logOutClient);
 // reset passwords
-clientRouter.post('/reset-password', (req, res) => {
-    res.json({
-      status: SUCCESS,
-      message: 'Reset Password Success',
-    });
-  });
+clientRouter.post('/request-otp', generateOTP);
+clientRouter.post('/reset-password', resetPassword)
 
   module.exports= {
     clientRouter,
