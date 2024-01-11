@@ -1,42 +1,25 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    products:[{
-        productId: {
-            type: mongoose.Schema.Types.ObjectId,
+    clientDetails:{
+        clientDetails:{
+            type: mongoose.Schema.Types.Mixed,
+            required:  true,
+        },
+        cartInformation:{
+            type: mongoose.Schema.Types.Mixed,
             required: true,
-            ref:"product"
         }, 
-        quantity:{
-            type: Number,
-            required: true,
-        }
-    } ],
-   clients:[
-    {
-        clientId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"Clients",
+        shippingAddress:{
+            type:mongoose.Schema.Types.Mixed,
             required: true,
         },
-        clientName:{
-            type:String,
-            required: true
+        paymentMethod:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "payment-method",
+            required:true,
         }
     }
-   ],
-   totalAmount: {
-    type: Number,
-    required: true,
-  },
-  shippingAddress: {
-    type: String,
-    required: true,
-  },
-  orderDate: {
-    type: Date,
-    default: Date.now,
-  },
 }, {timestamps: true})
 
 const order = new mongoose.model('order', orderSchema);
